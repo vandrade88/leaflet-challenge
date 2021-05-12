@@ -4,36 +4,81 @@ var queryUrl = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_da
 // Perform a GET request to the query URL
 d3.json(queryUrl).then(function(data) {
   // Once we get a response, send the data.features object to the createFeatures function
-  createFeatures(data.features);
+  createMarkers(data.features);
 });
 
-function createFeatures(feature) {
+function createMarkers(feature) {
+    var earthquakes = L.geoJSON(feature, {
+        onEachFeature: function(feature, layer) {
+            layer.bindPopup(`<h3>${feature.properties.title}</h3><hr><strong>Date & Time: </strong>${ new Date(feature.properties.time)}<br><strong>Magnitude: </strong>${feature.properties.mag}`)
+        },
+        pointToLayer: function(feature, latlng) {
+            return L.circle(latlng,
+                {
+                fillOpacity: 0.75,
+                color: "white",
+                weight: 0.8,
+                fillColor: colorDepth(feature.geometry.coordinates[2]),
+                radius: markerSize(feature.properties.mag)
+                })
+        }
+    // L.circleMarker([feature.geometry.coordinates[1], feature.geometry.coordinates[0]],{
+    //     fillOpacity: 0.75,
+    //     color: "white",
+    //     fillColor: colorDepth(feature.properties.mag),
+    //     radius: markerSize(feature.properties.mag)
+    // })
+    // .bindPopup(`<h3>${feature.properties.title}</h3><hr><strong>Time: </strong>${ new Date(feature.properties.time)}<br><strong>Magnitute: </strong>${feature.properties.mag}`)
+    // )
 
-    for (var i = 0; i < feature.length; i++) {
-        L.circle(feature[i].geometry.coordinates, {
-            fillOpacity: 0.75,
-            color: "white",
-            fillColor: feature[i].geometry.coordinates.slice(2,3),
-            radius: feature[i].properties.mag
-        })
-        // layer.bindPopup(`<h3>${feature[i].properties.title}</h3><hr>Time: ${ new Date(feature.properties.time)}`);
-    }
-
-  // Define a function we want to run once for each feature in the features array
-  // Give each feature a popup describing the place and time of the earthquake
-  function onEachFeature(feature, layer) { // feature is the data
-    layer.bindPopup(`<h3>${feature.properties.title}</h3><hr><strong>Time: </strong>${ new Date(feature.properties.time)}<br><strong>Magnitute: </strong>${feature.properties.mag}`);
-  }
+});
 
   // Create a GeoJSON layer containing the features array on the earthquakeData object
   // Run the onEachFeature function once for each piece of data in the array
-  var earthquakes = L.geoJSON(feature, {
-    onEachFeature: onEachFeature // takes a function that you want to apply to each feature
-  });
-
-  // Sending our earthquakes layer to the createMap function
-  createMap(earthquakes);
+//   var earthquakes = L.geoJSON(feature, {
+    // pointToLayer: function(feature, latlng) {
+    //     return L.circleMarker(latlng);
+    //   },
+      // circle style
+    // style: createFeatures,
+    // onEachFeature: onEachFeature // takes a function that you want to apply to each feature
+//   });
+    // Sending our earthquakes layer to the createMap function
+    createMap(earthquakes);
+    }
+// });
+// define a color function that will give each marker a different color based on its magnitude
+function colorDepth(depth) {
+    switch (true) {
+    case depth > 90:
+        return "#ff6066";
+    case depth < 89 && depth > 70:
+        return "#fca35d";
+    case depth < 69 && depth > 50:
+        return "#feb72a";
+    case depth < 49 && depth > 30:
+        return "#f7dc11";
+    case depth < 29 && depth > 10:
+        return "#ddf400";
+    default:
+        return "#a4f600";
+    }
 }
+
+// set radiuss from magnitude
+function markerSize(magnitude) {
+if (magnitude <= 1) {
+    return 8;
+}
+
+return magnitude * 20000;
+}
+
+  // Define a function we want to run once for each feature in the features array
+  // Give each feature a popup describing the place and time of the earthquake
+//   function onEachFeature(feature, layer) { // feature is the data
+//     layer.bindPopup(`<h3>${feature.properties.title}</h3><hr><strong>Time: </strong>${ new Date(feature.properties.time)}<br><strong>Magnitute: </strong>${feature.properties.mag}`);
+//   }
 
 function createMap(earthquakes) {
 
