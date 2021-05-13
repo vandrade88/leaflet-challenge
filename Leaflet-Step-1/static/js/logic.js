@@ -135,7 +135,9 @@ function createMap(earthquakes) {
             "#ff6066",
             "#fca35d",
             "#feb72a",
-            
+            "#f7dc11",
+            "#ddf400",
+            "#a4f600"
         ]
         var labels = []
 
@@ -154,15 +156,3 @@ function createMap(earthquakes) {
     legend.addTo(myMap);
 
   }
-
-  return "#ff6066";
-  case depth < 89 && depth > 70:
-      return "#fca35d";
-  case depth < 69 && depth > 50:
-      return "#feb72a";
-  case depth < 49 && depth > 30:
-      return "#f7dc11";
-  case depth < 29 && depth > 10:
-      return "#ddf400";
-  default:
-      return "#a4f600";
