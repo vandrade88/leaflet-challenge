@@ -141,18 +141,27 @@ function createMap(earthquakes) {
         ]
         var labels = []
 
+        for (var i = 0; i < limits.length; i++) {
+            div.innerHTML +=
+            labels.push(
+                '<i style="background:' + colors[i] + '"></i>' + limits[i] + (limits[i + 1])
+            )  
+
+        }
         // Add min & max
-        div.innerHTML = '<h1>Earthquake Depth</h1>' + '<div class="labels"><div class="min">' + limits[0] + '</div> \
-                <div class="max">' + limits[limits.length - 1] + '</div></div>'
+        // div.innerHTML = '<h1>Earthquake Depth</h1>' + '<div class="labels"><div class="min">' + limits[0] + '</div> \
+        //         <div class="max">' + limits[limits.length - 1] + '</div></div>'
 
-        limits.forEach(function (limit, index) {
-        labels.push('<li style="background-color: ' + colors[index] + '"></li>')
-        })
+        // limits.forEach(function (limit, index) {
+        // labels.push('<limit style="background-color: ' + colors[index] + '"></limit>' + 
+        // limits[i] + (limits[i + 1])
+        // )
+        // })
 
-        div.innerHTML += '<ul>' + labels.join('') + '</ul>'
+        div.innerHTML += labels.join('');
         return div
     }
         // Adding legend to the map
     legend.addTo(myMap);
 
-  }
+  };
