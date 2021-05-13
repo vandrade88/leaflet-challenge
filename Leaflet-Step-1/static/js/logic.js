@@ -93,7 +93,7 @@ function createMap(earthquakes) {
       accessToken: API_KEY
     });
   
-    var darkmap = L.tileLayer("https://api.mapbox.com/styles/v1/mapbox/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
+    var satmap = L.tileLayer("https://api.mapbox.com/styles/v1/mapbox/satellite-v9/tiles/256/{z}/{x}/{y}?access_token={accessToken}", {
       attribution: "Map data &copy; <a href=\"https://www.openstreetmap.org/\">OpenStreetMap</a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>, Imagery © <a href=\"https://www.mapbox.com/\">Mapbox</a>",
       maxZoom: 18,
       id: "dark-v10",
@@ -103,7 +103,7 @@ function createMap(earthquakes) {
     // Define a baseMaps object to hold our base layers
     var baseMaps = {
       "Street Map": streetmap,
-      "Dark Map": darkmap
+      "Satelite Map": satmap
     };
   
     // Create overlay object to hold our overlay layer
@@ -133,11 +133,11 @@ function createMap(earthquakes) {
         var div = L.DomUtil.create('div', 'info legend')
         var labels = [
             "-10-10",
-            " 10-30",
-            " 30-50",
-            " 50-70",
-            " 70-90",
-            " 90+"
+            "10-30",
+            "30-50",
+            "50-70",
+            "70-90",
+            "90+"
         ];
         var colors = [
             "#a4f600",
