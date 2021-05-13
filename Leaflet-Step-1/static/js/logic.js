@@ -130,7 +130,14 @@ function createMap(earthquakes) {
     var legend = L.control({ position: 'bottomright' })
     legend.onAdd = function (map) {
         var div = L.DomUtil.create('div', 'info legend')
-        var limits = [0, 1, 2, 3, 4, 5]
+        var limits = [
+            "-10",
+            "10",
+            "30",
+            "50",
+            "70",
+            "90"
+        ]
         var colors = [
             "#a4f600",
             "#ddf400",
