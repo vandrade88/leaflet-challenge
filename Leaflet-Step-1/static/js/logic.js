@@ -141,13 +141,29 @@ function createMap(earthquakes) {
         ]
         var labels = []
 
-        for (var i = 0; i < limits.length; i++) {
-            div.innerHTML +=
-            labels.push(
-                '<i style="background:' + colors[i] + '"></i>' + limits[i] + (limits[i + 1])
-            )  
+        // Add min & max
+        div.innerHTML = '<h4><strong>Earthquake Depth Legend</strong></h4>';
+            for (var i = 0; i < limits.length; i++) {
 
+                div.innerHTML +=
+                '<i style="background:' + (limits[i] + 1) + '"></i> ' +
+                limits[i] + (limits[i + 1] ? ' &ndash; ' + limits[i + 1] + '<br>' : '+');
         }
+
+        // limits.forEach(function (limit, index) {
+        // labels.push('<limit style="background-color: ' + colors[index] + '"></limit>' + 
+        // limits[i] + (limits[i + 1])
+        // )
+        // })
+
+
+        // for (var i = 0; i < limits.length; i++) {
+        //     div.innerHTML +=
+        //     labels.push(
+        //         '<i style="background:' + colors[i] + '"></i>' + limits[i] + (limits[i + 1])
+        //     )  
+
+        // }
         // Add min & max
         // div.innerHTML = '<h1>Earthquake Depth</h1>' + '<div class="labels"><div class="min">' + limits[0] + '</div> \
         //         <div class="max">' + limits[limits.length - 1] + '</div></div>'
@@ -158,7 +174,7 @@ function createMap(earthquakes) {
         // )
         // })
 
-        div.innerHTML += labels.join('');
+        // div.innerHTML += labels.join('<br>');
         return div
     }
         // Adding legend to the map
