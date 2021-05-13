@@ -133,11 +133,11 @@ function createMap(earthquakes) {
         var div = L.DomUtil.create('div', 'info legend')
         var labels = [
             "-10-10",
-            "10-30",
-            "30-50",
-            "50-70",
-            "70-90",
-            "90+"
+            " 10-30",
+            " 30-50",
+            " 50-70",
+            " 70-90",
+            " 90+"
         ];
         var colors = [
             "#a4f600",
