@@ -132,12 +132,12 @@ function createMap(earthquakes) {
         var div = L.DomUtil.create('div', 'info legend')
         var limits = [0, 1, 2, 3, 4, 5]
         var colors = [
-            "#ff6066",
-            "#fca35d",
-            "#feb72a",
-            "#f7dc11",
+            "#a4f600",
             "#ddf400",
-            "#a4f600"
+            "#f7dc11",
+            "#feb72a",
+            "#fca35d",
+            "#ff6066"
         ]
         var labels = []
 
