@@ -11,7 +11,7 @@ d3.json(queryUrl).then(function(data) {
 function createMarkers(feature) {
     var earthquakes = L.geoJSON(feature, {
         onEachFeature: function(feature, layer) {
-            layer.bindPopup(`<h3>${feature.properties.title}</h3><hr><strong>Date & Time: </strong>${ new Date(feature.properties.time)}<br><strong>Magnitude: </strong>${feature.properties.mag}`)
+            layer.bindPopup(`<h3>${feature.properties.title}</h3><hr><strong>Date & Time: </strong>${ new Date(feature.properties.time)}<br><strong>Magnitude: </strong>${feature.properties.mag}<br><strong>Depth: </strong>${feature.geometry.coordinates[2]}`)
         },
         pointToLayer: function(feature, latlng) {
             return L.circle(latlng,
