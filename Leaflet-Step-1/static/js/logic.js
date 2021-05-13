@@ -130,12 +130,12 @@ function createMap(earthquakes) {
     var legend = L.control({ position: 'bottomright' })
     legend.onAdd = function (map) {
         var div = L.DomUtil.create('div', 'info legend')
-        var limits = geojson.options.limits
+        var limits = [0, 1, 2, 3, 4, 5]
         var colors = geojson.options.colors
         var labels = []
 
         // Add min & max
-        div.innerHTML = '<h1>Median Income</h1>' + '<div class="labels"><div class="min">' + limits[0] + '</div> \
+        div.innerHTML = '<h1>Earthquake Depth</h1>' + '<div class="labels"><div class="min">' + limits[0] + '</div> \
                 <div class="max">' + limits[limits.length - 1] + '</div></div>'
 
         limits.forEach(function (limit, index) {
