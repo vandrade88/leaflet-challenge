@@ -5,6 +5,7 @@ var queryUrl = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_da
 d3.json(queryUrl).then(function(data) {
   // Once we get a response, send the data.features object to the createFeatures function
   createMarkers(data.features);
+
 });
 
 function createMarkers(feature) {
@@ -45,7 +46,7 @@ function createMarkers(feature) {
 //   });
     // Sending our earthquakes layer to the createMap function
     createMap(earthquakes);
-    }
+}
 // });
 // define a color function that will give each marker a different color based on its magnitude
 function colorDepth(depth) {
@@ -130,14 +131,14 @@ function createMap(earthquakes) {
     var legend = L.control({ position: 'bottomright' })
     legend.onAdd = function (map) {
         var div = L.DomUtil.create('div', 'info legend')
-        var limits = [
-            "-10",
-            "10",
-            "30",
-            "50",
-            "70",
-            "90"
-        ]
+        var labels = [
+            "-10-10",
+            "10-30",
+            "30-50",
+            "50-70",
+            "70-90",
+            "90+"
+        ];
         var colors = [
             "#a4f600",
             "#ddf400",
@@ -145,46 +146,15 @@ function createMap(earthquakes) {
             "#feb72a",
             "#fca35d",
             "#ff6066"
-        ]
-        var labels = []
+        ];
+        var limits = [0,1,2,3,4,5];
+        var legendInfo = "<h4>Earthquake Depth</h4>"
+        div.innerHTML = legendInfo;
 
-        // Add min & max
-        div.innerHTML = '<h4><strong>Earthquake Depth Legend</strong></h4>';
-            for (var i = 0; i < limits.length; i++) {
-
-                div.innerHTML +=
-                '<i style="background:' + (limits[i] + 1) + '"></i> ' +
-                limits[i] + (limits[i + 1] ? ' &ndash; ' + limits[i + 1] + '<br>' : '+');
-        }
-
-        // limits.forEach(function (limit, index) {
-        // labels.push('<limit style="background-color: ' + colors[index] + '"></limit>' + 
-        // limits[i] + (limits[i + 1])
-        // )
-        // })
-
-
-        // for (var i = 0; i < limits.length; i++) {
-        //     div.innerHTML +=
-        //     labels.push(
-        //         '<i style="background:' + colors[i] + '"></i>' + limits[i] + (limits[i + 1])
-        //     )  
-
-        // }
-        // Add min & max
-        // div.innerHTML = '<h1>Earthquake Depth</h1>' + '<div class="labels"><div class="min">' + limits[0] + '</div> \
-        //         <div class="max">' + limits[limits.length - 1] + '</div></div>'
-
-        // limits.forEach(function (limit, index) {
-        // labels.push('<limit style="background-color: ' + colors[index] + '"></limit>' + 
-        // limits[i] + (limits[i + 1])
-        // )
-        // })
-
-        // div.innerHTML += labels.join('<br>');
-        return div
-    }
-        // Adding legend to the map
-    legend.addTo(myMap);
-
-  };
+        limits.forEach(function(limit, index) {
+          div.innerHTML += "<li style=\"background-color: " + colors[index] + "\">"+labels[index]+"</li>"
+        });
+        return div;
+      };
+  legend.addTo(myMap);
+}
